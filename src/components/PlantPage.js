@@ -11,13 +11,22 @@ function PlantPage() {
     setPlantList([...plantList, newPlant]);
   }
 
+  function handleDeletePlant(deletedPlant) {
+    setPlantList(plantList.filter(plant => plant.id !== deletedPlant.id));
+  }
+
+  function handleUpdatePlant(updatedPlant) {
+    setPlantList(plantList.map(plant => plant.id === updatedPlant.id ? updatedPlant : plant));
+  }
+
   // console.log('in PlantPage, searchKey: ', searchKey);
 
   return (
     <main>
       <NewPlantForm onAddNewPlant={handleAddNewPlant} />
       <Search onSetSearchKey={setSearchKey} />
-      <PlantList plantList={plantList} onSetPlantList={setPlantList} searchKey={searchKey} />
+      <PlantList plantList={plantList} onSetPlantList={setPlantList} 
+        searchKey={searchKey} onDeletePlant={handleDeletePlant} onUpdatePlant={handleUpdatePlant}/>
     </main>
   );
 }
